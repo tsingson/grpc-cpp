@@ -5,7 +5,7 @@
 		<Option title="grpc-demo"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
-		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\usr\local\;CMake Files\..\..\..\..\..\usr\local\lib\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\protobuf\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\grpc\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\absl\;CMake Files\sample\;CMake Files\calculator\;"/>
+		<Option virtualFolders="CMake Files\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\..\;CMake Files\..\..\..\..\..\usr\;CMake Files\..\..\..\..\..\usr\local\;CMake Files\..\..\..\..\..\usr\local\lib\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\protobuf\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\grpc\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\absl\;CMake Files\..\..\..\..\..\usr\local\lib\cmake\spdlog\;CMake Files\sample\;CMake Files\calculator\;"/>
 		<Build>
 			<Target title="all">
 				<Option working_dir="/Users/qinshen/go/src/grpc-cpp"/>
@@ -530,6 +530,18 @@
 		</Unit>
 		<Unit filename="/Users/qinshen/go/src/grpc-cpp/../../../../../usr/local/lib/cmake/absl/abslTargets.cmake">
 			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\absl\"/>
+		</Unit>
+		<Unit filename="/Users/qinshen/go/src/grpc-cpp/../../../../../usr/local/lib/cmake/spdlog/spdlogConfig.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\spdlog\"/>
+		</Unit>
+		<Unit filename="/Users/qinshen/go/src/grpc-cpp/../../../../../usr/local/lib/cmake/spdlog/spdlogConfigTargets-release.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\spdlog\"/>
+		</Unit>
+		<Unit filename="/Users/qinshen/go/src/grpc-cpp/../../../../../usr/local/lib/cmake/spdlog/spdlogConfigTargets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\spdlog\"/>
+		</Unit>
+		<Unit filename="/Users/qinshen/go/src/grpc-cpp/../../../../../usr/local/lib/cmake/spdlog/spdlogConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\..\usr\local\lib\cmake\spdlog\"/>
 		</Unit>
 		<Unit filename="/Users/qinshen/go/src/grpc-cpp/sample/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\sample\"/>

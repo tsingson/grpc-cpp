@@ -1,39 +1,56 @@
-# gRPC C++
+# gRPC C++ with bufbuild
 ## Installing
 
-### How to install
+### 1. install vcpkg
 
-To install **gRPC**, run the following commands:
+
+
+### 2. install gRPC
+
+To install **gRPC**, check out [https://github.com/grpc/grpc/tree/master/src/cpp](https://github.com/grpc/grpc/tree/master/src/cpp)
+
+or,  run the following commands:
 
 ```bash
-$ export INSTALL_DIR=$HOME/.local
+$ export INSTALL_DIR=$HOME/go/src
 $ mkdir -p $INSTALL_DIR
 $ export PATH="$INSTALL_DIR/bin:$PATH"
-$ git clone --recurse-submodules -b v1.37.1 https://github.com/grpc/grpc
+$ git clone --recurse-submodules https://github.com/grpc/grpc
 $ cd grpc
 $ mkdir -p cmake/build
 $ pushd cmake/build
 $ cmake -DgRPC_INSTALL=ON -DgRPC_BUILD_TESTS=OFF -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR ../..
 $ make -j
 $ make install
-$ popd
-$ mkdir -p third_party/abseil-cpp/cmake/build
-$ pushd third_party/abseil-cpp/cmake/build
-$ cmake -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE ../..
-$ make -j
-$ make install
-$ popd
 ```
 
-### Note
+## 3. install protobuf
 
-If you encounter the `fatal error: absl/synchronization/mutex.h: 
-No such file or directory` error when building the [Hello world](https://github.com/grpc/grpc/tree/master/examples/cpp/helloworld) example, simply fix it by copying the `absl` directory from `grpc/third_party/abseil-cpp/absl` 
-to `/usr/local/include/`:
+check out [https://github.com/protocolbuffers/protobuf/blob/main/src/README.md](https://github.com/protocolbuffers/protobuf/blob/main/src/README.md)
+
+### 4. install spdlog
+
+
+
+### 5. install bufbuild cli
+
+in macOS
 
 ```
-$ (sudo) cp -r grpc/third_party/abseil-cpp/absl /usr/local/include/
+brew install bufbuild/buf/buf
 ```
+
+build from source
+
+```
+git clone https://github.com/bufbuild/buf
+cd buf
+go install -a -trimpath -gcflags=-trimpath=OPATH -asmflags=-trimpath=OPATH -ldflags "-w -s " ./cmd/...
+```
+
+
+
+
 
 ## Working with gRPC
 
@@ -43,15 +60,15 @@ $ (sudo) cp -r grpc/third_party/abseil-cpp/absl /usr/local/include/
 Define a service in a `.proto` file using the **Interface Definition Language (IDL)** from **Protocol Buffers**.
 
 #### Example: [Sample service](protos/sample/v1/sample.proto)
+
 ```protobuf
 syntax = "proto3";
 
-option java_package = "sample.grpc";
-
-package sample;
+option java_package = "sample.v1.grpc";
+package sample.v1;
 
 service SampleService {
-    rpc SampleMethod (SampleRequest) returns (SampleResponse) {}
+    rpc Sample (SampleRequest) returns (SampleResponse) {}
 }
 
 message SampleRequest {
@@ -65,39 +82,21 @@ message SampleResponse {
 
 #### Example: [Calculator service](protos/calculator/v1/calculator.proto)
 
-#### Note
+#### 
 
 ### How to generate gRPC code
 
-#### Instruction
-Use the protocol buffer compiler `protoc` to generate client and server code:
-```bash
-$ protoc -I=$SRC_DIR --cpp_out=$DST_DIR $SRC_DIR/sample.proto
-$ protoc -I=$SRC_DIR --grpc_out=$DST_DIR --plugin=protoc-gen-grpc=/usr/local/bin/grpc_cpp_plugin $SRC_DIR/sample.proto
-```
-where:
-* `SRC_DIR`: The source directory, or the directory contains the `.proto` file.
-* `DST_DIR`: The destination directory, or the directory contains the `.pb.h`, `.pb.cc`, `.grpc.pb.h` and `.grpc.pb.cc` files.
+ ```
+ buf generate
+ ```
 
-#### Example: Sample
-With `SRC_DIR = protos/` and `DST_DIR = sample/`:
-```bash
-$ protoc -I=protos/ --cpp_out=sample/ protos/sample.proto
-$ protoc -I=protos/ --grpc_out=sample/ --plugin=protoc-gen-grpc=/usr/local/bin/grpc_cpp_plugin protos/sample.proto
-```
 
-#### Example: Calculator
 
-With `SRC_DIR = protos/` and `DST_DIR = calculator/`:
+check out [buf.gen.yaml](buf.gen.yaml) for buf cli generate configuration
 
-```bash
-$ protoc -I=protos/ --cpp_out=calculator/ protos/calculator.proto
-$ protoc -I=protos/ --grpc_out=calculator/ --plugin=protoc-gen-grpc=/usr/local/bin/grpc_cpp_plugin protos/calculator.proto
-```
 
-#### Note
 
-The `.pb.h`, `.pb.cc`, `.grpc.pb.h` and `.grpc.pb.cc` files could be generated automatically by the CMake's `add_custom_command` command and should not be included in the actual project. See also: [Sample CMakeLists.txt](sample/CMakeLists.txt), [Calculator CMakeLists.txt](calculator/CMakeLists.txt).
+---
 
 ### How to write a client
 

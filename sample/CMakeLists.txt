@@ -1,6 +1,11 @@
 #get_filename_component(sample_proto "../protos/sample.proto" ABSOLUTE)
 #get_filename_component(sample_proto_path "${sample_proto}" PATH)
 #
+if(NOT TARGET spdlog)
+    # Stand-alone build
+    find_package(spdlog REQUIRED)
+endif()
+
 set(sample_proto_sources "../api/cpp/include/protos/sample/v1/sample.pb.cc")
 set(sample_proto_headers "../api/cpp/include/protos/sample/v1/sample.pb.h")
 set(sample_grpc_sources "../api/cpp/include/protos/sample/v1/sample.grpc.pb.cc")
@@ -27,6 +32,7 @@ target_link_libraries(sample_grpc_proto
         ${_PROTOBUF_LIBPROTOBUF}
         ${_REFLECTION}
         ${_GRPC_GRPCPP})
+#target_link_libraries(sample_grpc_proto  PRIVATE spdlog::spdlog)
 
 foreach(_target sample_client sample_server sample_async_client sample_async_server)
     add_executable(${_target} "${_target}.cc")

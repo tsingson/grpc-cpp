@@ -15,5 +15,3 @@ plugins:
     out: api/cpp/include
   - plugin: buf.build/grpc/cpp
     out: api/cpp/include
-
-
